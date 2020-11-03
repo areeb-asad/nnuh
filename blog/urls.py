@@ -8,4 +8,5 @@ urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
     path('addpost/', views.addpost, name='addpost'),
     path('logout_view/', views.logout_view, name='logout_view'),
+    path('<int:post_id>/', views.detail, name='detail'),
 ]
