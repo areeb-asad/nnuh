@@ -12,14 +12,31 @@
 
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
+Comments On Post
+<br>
+{% for choice in post.comments_set.all %}
+
+    <label for="choice{{ forloop.counter }}">{{ choice.Fname }}  Comment --> {{ choice.Comment }}</label><br>
+{% endfor %}
+
+<br>
+To Add New Comment
+<br>
 <form action="{% url 'blog:addcomment' post.id %}" method="post">
 {% csrf_token %}
-    {{post.id}}
 <input type="hidden" name="postid" value={{post.id}}>
+    First Name
 <input type="text" name="Fname" >
+    <br>
+    Last Name
 <input type="text" name="Lname" >
+     <br>
+    Comment
 <input type="text" name="Comment" >
+    <br>
+    Email
 <input type="text" name="Email" >
+    <br>
 <input type="submit" value="Add Comment">
 
 </form>
