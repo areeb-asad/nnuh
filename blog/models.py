@@ -8,7 +8,7 @@ class Post(models.Model):
     pub_user = models.CharField(max_length=200)
 
     def __str__(self):
-        return self.title
+        return str(self.id)
 
 class Comments(models.Model):
     post_id = models.ForeignKey(Post, on_delete=models.CASCADE)

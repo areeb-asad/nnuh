@@ -24,7 +24,7 @@ def addpost(request):
     if request.method == 'POST':
         if request.POST.get('post-title'):
             if request.POST.get('post-content'):
-                sss= Post(title=request.POST.get('post-title'),content=request.POST.get('post-content'),pub_user=request.user.username,post_date=datetime.datetime.now())
+                sss = Post(title=request.POST.get('post-title'),content=request.POST.get('post-content'),pub_user=request.user.username,post_date=datetime.datetime.now())
                 sss.save()
                 return HttpResponseRedirect(reverse('blog:index'))
             
@@ -42,3 +42,12 @@ def detail(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
     return render(request, 'blog/detail.html', {'post': post})
 
+def addcomment(request,post_id):
+    post = get_object_or_404(Post, pk=post_id)
+    if request.method == 'POST':
+            com = Comments(post_id=post,Fname=request.POST.get('Fname'),Lname=request.POST.get('Lname'),Comment=request.POST.get('Comment'),Email=request.POST.get('Email'))
+            com.save()
+            return HttpResponseRedirect(reverse('blog:detail',args=(post.id,)))
+
+    else:
+        return render(request, 'blog/detail')
