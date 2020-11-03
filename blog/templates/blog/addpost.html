@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add New Post</title>
+</head>
+<body>
+<form action="{% url 'blog:addpost' %}" method="post">
+{% csrf_token %}
+    <input type="text" name="post-title" >
+    <input type="text" name="post-content" >
+    <input type="submit" value="Add Post">
+</form>
+
+<br>
+<li><a href="/blog/">Home Page</a></li>
+
+</body>
+</html>

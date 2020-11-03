@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home Page</title>
+</head>
+<body>
+{% if latest_posts_list %}
+    <ul>
+    {% for Post in latest_posts_list %}
+        <li><a href="/blog/{{ Post.id }}/">{{ Post.title }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No Posts are available.</p>
+{% endif %}
+
+
+<li><a href="/blog/addpost">Add New Post</a></li>
+<li><a href="/blog/logout_view">logout User</a></li>
+
+</body>
+</html>
