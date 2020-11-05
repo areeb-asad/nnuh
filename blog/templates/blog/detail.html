@@ -26,19 +26,23 @@ To Add New Comment
 {% csrf_token %}
 <input type="hidden" name="postid" value={{post.id}}>
     First Name
-<input type="text" name="Fname" >
+<input type="text" name="Fname" required >
     <br>
     Last Name
-<input type="text" name="Lname" >
+<input type="text" name="Lname" required>
      <br>
     Comment
-<input type="text" name="Comment" >
+<input type="text" name="Comment" required>
     <br>
     Email
-<input type="text" name="Email" >
+<input type="text" name="Email" required>
     <br>
 <input type="submit" value="Add Comment">
 
+    <br>    <br>
+    <li><a href="/blog/">Home Page</a></li>
+    <br>
+    <li><a href="/blog/count">Users Post Report</a></li>
 </form>
 </body>
 </html>

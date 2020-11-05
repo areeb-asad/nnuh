@@ -1,6 +1,7 @@
 from django.shortcuts import render
 
 # Create your views here.
+from django.db.models import Count
 from django.contrib.auth import logout
 from django.http import HttpResponse
 import datetime
@@ -10,6 +11,8 @@ from django.urls import reverse
 from django.views import generic
 from django.contrib.auth.decorators import login_required
 from .models import Post, Comments
+from django.db import models
+from collections import Counter
 
 class IndexView(generic.ListView):
     template_name = 'blog/index.html'
@@ -40,6 +43,8 @@ def logout_view(request):
 
 def detail(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
+    count = Post.objects.values('pub_user').distinct().count()
+    
     return render(request, 'blog/detail.html', {'post': post})
 
 def addcomment(request,post_id):
@@ -50,4 +55,10 @@ def addcomment(request,post_id):
             return HttpResponseRedirect(reverse('blog:detail',args=(post.id,)))
 
     else:
-        return render(request, 'blog/detail')
+        return HttpResponseRedirect(reverse('blog:detail'))
+
+def count(request):
+    fieldname = 'pub_user'
+    p = Post.objects.values(fieldname).order_by(fieldname).annotate(the_count=Count(fieldname))
+    print(p)
+    return render(request, 'blog/count.html', {'postcounts': p})
