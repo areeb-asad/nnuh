@@ -1,22 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'blog/base.html' %}
 
+{% block content %}
+    <table class="table">
+    <tr>
+        <td>
+            User Name
+        </td>
+        <td>
+            Number Of Posts
+        </td>
+
+    </tr>
 {% for postcount in postcounts %}
-
-{{ postcount.pub_user }}
-
-    {{ postcount.the_count }}
-       <br>
-
+<tr>
+            <td>{{ postcount.pub_user }}</td>
+            <td>{{ postcount.the_count }}</td>
+        </tr>
 {% endfor %}
-
-<br>
-
-    <li><a href="/blog/">Home Page</a></li>
-</body>
-</html>
+    </table>
+{% endblock %}

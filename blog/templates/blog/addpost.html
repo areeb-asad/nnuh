@@ -1,19 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Add New Post</title>
-</head>
-<body>
+{% extends 'blog/base.html' %}
+
+{% load static %}
+{% block content %}
+
 <form action="{% url 'blog:addpost' %}" method="post">
 {% csrf_token %}
-    <input type="text" name="post-title" >
-    <input type="text" name="post-content" >
-    <input type="submit" value="Add Post">
+        <table>
+                <tr>
+                    <td><label for="id_name">Post Title</label></td>
+                    <td><input type="text" name="post-title" required></td>
+                </tr>
+                <tr>
+                    <td><label for="post-content-Label">post content</label></td>
+                    <td><textarea id="post-content" cols="50" rows="10" name="post-content" required></textarea></td>
+                </tr>
+                <tr>
+                    <td><input type="submit" value="Add Post"></td>
+
+                </tr>
+        </table>
 </form>
 
 <br>
-<li><a href="/blog/">Home Page</a></li>
 
-</body>
-</html>
+
+{% endblock %}

@@ -9,7 +9,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views import generic
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from .models import Post, Comments
 from django.db import models
 from collections import Counter
@@ -23,29 +23,26 @@ class IndexView(generic.ListView):
         return Post.objects.order_by('-post_date')[:5]
 
 @login_required(login_url='/accounts/login/?next=/blog/addpost/')
+@permission_required('blog.add_post')
 def addpost(request):
     if request.method == 'POST':
         if request.POST.get('post-title'):
-            if request.POST.get('post-content'):
                 sss = Post(title=request.POST.get('post-title'),content=request.POST.get('post-content'),pub_user=request.user.username,post_date=datetime.datetime.now())
                 sss.save()
                 return HttpResponseRedirect(reverse('blog:index'))
-            
-    else:
-            return render(request, 'blog/addpost.html')
-
-
+    else: return render(request, 'blog/addpost.html')
 
 
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse('blog:index'))
 
+
 def detail(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
     count = Post.objects.values('pub_user').distinct().count()
-    
     return render(request, 'blog/detail.html', {'post': post})
+
 
 def addcomment(request,post_id):
     post = get_object_or_404(Post, pk=post_id)

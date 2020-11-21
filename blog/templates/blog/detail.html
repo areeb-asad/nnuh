@@ -1,16 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h1> Post Title ({{ post.title }})</h1>
-<h1>Post Content ({{ post.content }})</h1>
-<h1>Post User ({{ post.pub_user }})</h1>
-<h1>Publish Date ({{ post.post_date }})</h1>
+{% extends 'blog/base.html' %}
 
-{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+{% block content %}
+
+
+
+
+      <div class="card-body">
+        <h1>{{ post.title }} </h1>
+        <p class=" text-muted">{{ post.pub_user }} | {{ post.post_date }}</p>
+        <p class="card-text ">{{ post.content  | safe }}</p>
+      </div>
+
+
 
 Comments On Post
 <br>
@@ -32,17 +34,17 @@ To Add New Comment
 <input type="text" name="Lname" required>
      <br>
     Comment
-<input type="text" name="Comment" required>
+
+    <textarea id="post-content" cols="30" rows="3" name="Comment" required></textarea>
     <br>
     Email
 <input type="text" name="Email" required>
     <br>
+    <br>
 <input type="submit" value="Add Comment">
 
-    <br>    <br>
-    <li><a href="/blog/">Home Page</a></li>
-    <br>
-    <li><a href="/blog/count">Users Post Report</a></li>
 </form>
-</body>
-</html>
+
+{% endblock %}
+
+
