@@ -3,6 +3,8 @@
 {% load static %}
 {% block content %}
 
+                <h5><p class="text-danger">Add New Post</p></h5>
+
 <form action="{% url 'blog:addpost' %}" method="post">
 {% csrf_token %}
         <table>

@@ -4,13 +4,13 @@
 {% block content %}
 
 
-<h5><p class="text-danger">List of Lastest Five Posts</p></h5>
+<h5><p class="text-danger">List of All Posts</p></h5>
 
 
-{% if latest_posts_list %}
+{% if latest_post_list %}
 
     <ul>
-    {% for post in latest_posts_list %}
+    {% for post in latest_post_list %}
         <div class="card text-center">
   <div class="card-header">
       <h5><p class="text-danger">User : {{ post.pub_user }}</p></h5>
@@ -36,11 +36,6 @@
     <p>No Posts are available.</p>
 {% endif %}
 
-<div class="row">
-    <div class="col-12 d-flex justify-content-center text-center">
-      <a align="center" href="/blog/allposts/" > Show all Posts</a>
-    </div>
-</div>
-    <br>
+
 
 {% endblock %}

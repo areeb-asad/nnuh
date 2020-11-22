@@ -5,44 +5,79 @@
 
 
 
-
-      <div class="card-body">
-        <h1>{{ post.title }} </h1>
-        <p class=" text-muted">{{ post.pub_user }} | {{ post.post_date }}</p>
-        <p class="card-text ">{{ post.content  | safe }}</p>
+ <h5><p class="text-danger">Post Details</p></h5>
+    <br>
+      <div class="table table-striped">
+        <table class="table">
+            <tr>
+            <td>
+                <h1>{{ post.title }} </h1>
+                <p class=" text-muted">{{ post.pub_user }} | {{ post.post_date }}</p>
+                <p class="card-text ">{{ post.content  | safe }}</p>
+            </td>
+            </tr>
+        </table>
       </div>
 
 
-
-Comments On Post
+<br>
+    <br>
+ <h5><p class="text-danger">Post Comments</p></h5>
 <br>
 {% for choice in post.comments_set.all %}
 
-    <label for="choice{{ forloop.counter }}">{{ choice.Fname }}  Comment --> {{ choice.Comment }}</label><br>
-{% endfor %}
 
+
+
+    <div class="card text-left">
+  <div class="card-header">
+      <h5 class="card-title"><span class="label label-warning" for="choice{{ forloop.counter }}">{{ choice.Fname }} </span><br></h5>
+
+  </div>
+  <div class="card-body">
+   <p class="card-text">{{ choice.Comment }}</p>
+  </div>
+
+</div>
+    <br>
+    {% endfor %}
 <br>
-To Add New Comment
+    <h5><p class="text-danger">Add Comment</p></h5>
+
 <br>
 <form action="{% url 'blog:addcomment' post.id %}" method="post">
 {% csrf_token %}
-<input type="hidden" name="postid" value={{post.id}}>
-    First Name
-<input type="text" name="Fname" required >
-    <br>
-    Last Name
-<input type="text" name="Lname" required>
-     <br>
-    Comment
+    <input type="hidden" name="postid" value={{post.id}}>
+     <table class="table">
+         <tr>
+             <td><h7>First Name</h7> </td>
+             <td>
+             <input type="text" name="Fname" required >
+             </td>
+         </tr>
+         <tr>
+             <td><h7>Last Name</h7> </td>
+             <td>
+             <input type="text" name="Lname" required>
+             </td>
+         </tr>
+         <tr>
+             <td><h7>Your Comment</h7> </td>
+             <td>
+             <textarea id="post-content" cols="30" rows="3" name="Comment" required></textarea>
+             </td>
+         </tr>
+         <tr>
+             <td><h7>Email</h7> </td>
+             <td>
+            <input type="text" name="Email" required>
+             </td>
+         </tr>
 
-    <textarea id="post-content" cols="30" rows="3" name="Comment" required></textarea>
-    <br>
-    Email
-<input type="text" name="Email" required>
-    <br>
-    <br>
+     </table>
 <input type="submit" value="Add Comment">
-
+<br>
+<br>
 </form>
 
 {% endblock %}

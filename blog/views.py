@@ -13,6 +13,8 @@ from django.contrib.auth.decorators import login_required, permission_required
 from .models import Post, Comments
 from django.db import models
 from collections import Counter
+from django.template import loader
+
 
 class IndexView(generic.ListView):
     template_name = 'blog/index.html'
@@ -59,3 +61,9 @@ def count(request):
     p = Post.objects.values(fieldname).order_by(fieldname).annotate(the_count=Count(fieldname))
     print(p)
     return render(request, 'blog/count.html', {'postcounts': p})
+
+
+def allpost(request):
+        latest_post_list = Post.objects.order_by('-post_date')
+        context = {'latest_post_list': latest_post_list}
+        return render(request, 'blog/allposts.html', context)
